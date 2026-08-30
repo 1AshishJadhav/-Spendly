@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}Privacy Policy — Spendly{% endblock %}
+
+{% block content %}
+<div class="terms-container">
+    <header class="terms-header">
+        <h1>Privacy Policy</h1>
+        <p>Last Updated: August 29, 2026</p>
+    </header>
+
+    <section class="terms-section">
+        <h2>1. Data We Collect</h2>
+        <p>We collect information that you provide directly to us when you create an account, such as your name, email address, and financial transaction details that you log within the app. We also collect minimal technical data like IP addresses and browser types to improve the service.</p>
+    </section>
+
+    <section class="terms-section">
+        <h2>2. How We Use Your Data</h2>
+        <p>Your data is used exclusively to provide the expense tracking service. This includes calculating your spending totals, categorizing your expenses, and providing monthly summaries. We do not use your financial data for marketing or profiling.</p>
+    </section>
+
+    <section class="terms-section">
+        <h2>3. Data Storage</h2>
+        <p>We employ industry-standard encryption and security protocols to store your data safely. Your data is stored on secure servers and is only accessible to you through your account credentials.</p>
+    </section>
+
+    <section class="terms-section">
+        <h2>4. Third Party Services</h2>
+        <p>Spendly does not sell, trade, or otherwise transfer your personal information to outside parties. We may use limited third-party infrastructure (such as hosting providers) that is strictly bound by confidentiality agreements.</p>
+    </section>
+
+    <section class="terms-section">
+        <h2>5. Contact Us</h2>
+        <p>If you have any questions about this Privacy Policy or the data we handle, please contact us at privacy@spendly.example.com.</p>
+    </section>
+
+    <footer class="terms-footer">
+        <a href="{{ url_for('landing') }}" class="btn-ghost">Return to Home</a>
+    </footer>
+</div>
+
+<style>
+    .terms-container {
+        max-width: 800px;
+        margin: 4rem auto;
+        padding: 0 2rem;
+        line-height: 1.6;
+        color: var(--text-main);
+    }
+    .terms-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+    .terms-header h1 {
+        font-family: 'DM Serif Display', serif;
+        font-size: 3rem;
+        margin-bottom: 0.5rem;
+    }
+    .terms-header p {
+        color: var(--text-muted);
+        font-style: italic;
+    }
+    .terms-section {
+        margin-bottom: 2rem;
+    }
+    .terms-section h2 {
+        font-family: 'DM Serif Display', serif;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 0.5rem;
+    }
+    .terms-footer {
+        margin-top: 4rem;
+        text-align: center;
+        border-top: 1px solid var(--border-color);
+        padding-top: 2rem;
+    }
+</style>
+{% endblock %}
