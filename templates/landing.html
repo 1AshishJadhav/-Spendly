@@ -20,7 +20,7 @@
         </p>
         <div class="hero-actions">
             <a href="{{ url_for('register') }}" class="btn-black">Create free account</a>
-            <a href="#" class="btn-black">See how it works</a>
+            <a href="#" id="how-it-works-btn" class="btn-black">See how it works</a>
         </div>
     </div>
     <div class="hero-visual">
@@ -87,5 +87,43 @@
         <a href="{{ url_for('register') }}" class="btn-primary">Create free account</a>
     </div>
 </section>
+
+<div id="video-modal" class="modal-overlay">
+    <div class="modal-container">
+        <button id="modal-close" class="modal-close">&times;</button>
+        <div class="video-wrapper">
+            <iframe id="modal-video" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('video-modal');
+        const btn = document.getElementById('how-it-works-btn');
+        const closeBtn = document.getElementById('modal-close');
+        const video = document.getElementById('modal-video');
+        const videoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1'; // Placeholder URL
+
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            video.src = videoUrl;
+            modal.classList.add('active');
+        });
+
+        function closeModal() {
+            modal.classList.remove('active');
+            video.src = ''; // Stop the video by clearing src
+        }
+
+        closeBtn.addEventListener('click', closeModal);
+
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+    });
+</script>
 
 {% endblock %}
