@@ -1,3 +1,14 @@
 {
-  "cSpell.words": ["hrefs", "pytest", "Spendly", "venv"]
+  "cSpell.words": [
+    "autoincrement",
+    "executemany",
+    "fromwerkzeug",
+    "hrefs",
+    "lastrowid",
+    "pytest",
+    "securityimportgenerate",
+    "Spendly",
+    "venv",
+    "werkzeug"
+  ]
 }
