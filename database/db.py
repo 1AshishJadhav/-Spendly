@@ -16,6 +16,21 @@ def get_db():
     conn.execute("PRAGMA foreign_keys = ON")
     return conn
 
+def create_user(name, email, password):
+    """
+    Creates a new user in the database.
+    """
+    hashed_password = generate_password_hash(password)
+    conn = get_db()
+    try:
+        with conn:
+            conn.execute(
+                "INSERT INTO users (name, email, password_hash) VALUES (?, ?, ?)",
+                (name, email, hashed_password)
+            )
+    finally:
+        conn.close()
+
 def init_db():
     """
     Initializes the database by creating the users and expenses tables.
