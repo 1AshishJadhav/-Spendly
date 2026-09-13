@@ -1,5 +1,5 @@
 import sqlite3
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 
 # Database file located in the project root
 DATABASE_PATH = 'spendly.db'
@@ -30,6 +30,25 @@ def create_user(name, email, password):
             )
     finally:
         conn.close()
+
+
+def verify_user(email, password):
+    """
+    Verifies user credentials and returns the user row if successful.
+    """
+    conn = get_db()
+    try:
+        user = conn.execute(
+            "SELECT id, password_hash FROM users WHERE email = ?",
+            (email,)
+        ).fetchone()
+
+        if user and check_password_hash(user['password_hash'], password):
+            return user
+    finally:
+        conn.close()
+    return None
+
 
 def init_db():
     """

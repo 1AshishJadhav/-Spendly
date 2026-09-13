@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 import sqlite3
-from database.db import init_db, seed_db, create_user
+from database.db import init_db, seed_db, create_user, verify_user
 
 app = Flask(__name__)
+app.secret_key = "dev-secret-key-for-spendly"
 
 with app.app_context():
     init_db()
@@ -20,10 +21,17 @@ def landing():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    if session.get("user_id"):
+        return redirect(url_for("landing"))
+
     if request.method == "POST":
         name = request.form.get("name")
         email = request.form.get("email")
         password = request.form.get("password")
+        confirm_password = request.form.get("confirm_password")
+
+        if password != confirm_password:
+            return render_template("register.html", error="Passwords do not match")
 
         try:
             create_user(name, email, password)
@@ -34,8 +42,22 @@ def register():
     return render_template("register.html")
 
 
-@app.route("/login")
+@app.route("/login", methods=["GET", "POST"])
 def login():
+    if session.get("user_id"):
+        return redirect(url_for("landing"))
+
+    if request.method == "POST":
+        email = request.form.get("email")
+        password = request.form.get("password")
+
+        user = verify_user(email, password)
+        if user:
+            session["user_id"] = user["id"]
+            return redirect(url_for("landing"))
+
+        return render_template("login.html", error="Invalid credentials")
+
     return render_template("login.html")
 
 
@@ -57,7 +79,8 @@ def privacy():
 
 @app.route("/logout")
 def logout():
-    return "Logout — coming in Step 3"
+    session.clear()
+    return redirect(url_for("landing"))
 
 
 @app.route("/profile")
